@@ -2,7 +2,27 @@
 Input: a List of integers as well as an integer `k` representing the size of the sliding window
 Returns: a List of integers
 '''
+
 def sliding_window_max(nums, k):
+    return sliding_window_max_unoptimizied(nums, k)
+
+def sliding_window_max_unoptimizied(nums, k):
+
+    # hold maxes for each window.
+    total_maxes = len(nums) - k + 1
+    maxes = [None] * total_maxes
+
+    # calculate max for each window
+    for i in range(total_maxes):
+
+        lower_bound = i
+        upper_bound = i + (k - 1)
+
+        maxes[i] = max(nums[lower_bound:upper_bound + 1])
+
+    return maxes
+
+def sliding_window_max_optimized(nums, k):
 
     # hold maxes for each window
     maxes = []
