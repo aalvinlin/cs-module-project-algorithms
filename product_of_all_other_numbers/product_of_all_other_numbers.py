@@ -3,10 +3,36 @@ Input: a List of integers
 Returns: a List of integers
 '''
 def product_of_all_other_numbers(arr):
-    # Your code here
+    
+    # O(n) time
+    # no division used
 
-    pass
+    # O(n) space for now - need to reduce to O(1) space
+    products = [1] * len(arr)
+    
+    # first pass: collect factors going from left to right
+    running_factor = 1
 
+    # multiply each number in the array by the factors so far
+    for i in range (0, len(arr)):
+        
+        products[i] *= running_factor
+
+        # collect factor at current index
+        running_factor *= arr[i]
+
+    # second pass: collect missing factors going from right to left
+    running_factor = 1
+
+    # multiply each number in the array by the factors so far
+    for i in range (len(arr) - 1, -1, -1):
+        
+        products[i] *= running_factor
+
+        # collect factor at current index
+        running_factor *= arr[i]
+
+    return products
 
 if __name__ == '__main__':
     # Use the main function to test your implementation
