@@ -1,11 +1,13 @@
 #!/usr/bin/python
 
 import sys
+from itertools import product
 
 def rock_paper_scissors(n):
-  # Your code here
-
-  pass
+  
+  options = ["rock", "paper", "scissors"]
+  
+  return [list(sequence_of_moves) for sequence_of_moves in product(options, repeat=n)]
 
 
 if __name__ == "__main__":
