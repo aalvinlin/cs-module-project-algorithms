@@ -2,7 +2,35 @@
 Input: a List of integers
 Returns: a List of integers
 '''
+
 def product_of_all_other_numbers(arr):
+    return product_of_all_other_numbers_unoptimized(arr)
+    # return product_of_all_other_numbers_optimized(arr)
+
+def product_of_all_other_numbers_unoptimized(arr):
+
+    # get product of all numbers in the array
+    total_product = 1
+
+    # determine if zeroes are present in this array
+    zeroes_present = False
+
+    # ignore zeroes when calculating product
+    for n in arr:
+        if n != 0:
+            total_product *= n
+        else:
+            zeroes_present = True
+    
+    # calculate individual quotients in the answer
+    # use total_product if the current number is zero
+    if zeroes_present:
+        return [total_product if n == 0 else 0 for n in arr]
+
+    else:
+        return [total_product // n for n in arr]
+
+def product_of_all_other_numbers_optimized(arr):
     
     # O(n) time
     # no division used
