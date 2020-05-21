@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import sys
 
 def making_change(amount, denominations):
@@ -35,28 +33,26 @@ def making_change_unoptimized(amount, denominations):
 # optimized version uses memoization to keep track of known values
 def making_change_optimized(amount, denominations):
 
-  print("finding ways to make change for", amount, "cents" )
-
   known_total_ways_to_make_change = {}
 
-  answer = making_change_helper(amount, denominations, known_total_ways_to_make_change)
-
-  print("calculated:", known_total_ways_to_make_change)
-
-  return answer
+  return making_change_helper(amount, denominations, known_total_ways_to_make_change)
 
 def making_change_helper(amount, denominations, known_total_ways_to_make_change):
 
-  # check to see if amount is stored yet. If so, return that value
-  if amount in known_total_ways_to_make_change:
+  types_of_coins_available = len(denominations)
 
-    print("memoization used!", amount, known_total_ways_to_make_change[amount])
-    return known_total_ways_to_make_change[amount]
+  # check to see if amount is stored yet. If so, return that value
+  # there will be different answers based on the types of coins available
+  #   ex: making change for 15 cents using [1, 5, 10]: 6 ways
+  #   ex: making change for 15 cents using [1]: 1 way
+  # dictionary lookup uses a tuple with both the amount and the types of coins available
+  if (amount, types_of_coins_available) in known_total_ways_to_make_change:
+
+    return known_total_ways_to_make_change[(amount, types_of_coins_available)]
 
   # there is one way to make change for 0 cents
   # if this state is reached from a recursion call, then that means a solution was reached
   elif amount == 0:
-    print("found a new way")
     return 1
 
   # if there is a negative number, then too much was subtracted from the previous step. Return 0
@@ -74,10 +70,13 @@ def making_change_helper(amount, denominations, known_total_ways_to_make_change)
 
     largest_coin_value = denominations[-1]
 
-    ways_for_current_amount = making_change_helper(amount - largest_coin_value, denominations, known_total_ways_to_make_change) + making_change_helper(amount, denominations[:len(denominations) - 1], known_total_ways_to_make_change)
+    ways_with_largest_coin_used = making_change_helper(amount - largest_coin_value, denominations, known_total_ways_to_make_change)
+    ways_without_largest_coin_used = making_change_helper(amount, denominations[:len(denominations) - 1], known_total_ways_to_make_change)
+
+    ways_for_current_amount = ways_with_largest_coin_used + ways_without_largest_coin_used
 
     # add newly computed number to store of known ways
-    known_total_ways_to_make_change[amount] = ways_for_current_amount
+    known_total_ways_to_make_change[(amount, types_of_coins_available)] = ways_for_current_amount
 
     return ways_for_current_amount
   
