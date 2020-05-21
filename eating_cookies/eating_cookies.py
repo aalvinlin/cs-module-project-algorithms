@@ -3,10 +3,13 @@ Input: an integer
 Returns: an integer
 '''
 
-def eating_cookies(n):
+def eating_cookies(n, cache=[]):
+
+    if len(cache) == 0:
+        cache = [0] * n
 
     return eating_cookies_unoptimized(n)
-    # return eating_cookies_optimized(n)
+    # return eating_cookies_optimized(n, cache)
 
 
 def eating_cookies_unoptimized(n):
