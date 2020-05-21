@@ -28,7 +28,8 @@ def product_of_all_other_numbers_unoptimized(arr):
         return [total_product if n == 0 else 0 for n in arr]
 
     else:
-        return [total_product // n for n in arr]
+        # return [total_product // n for n in arr]
+        return [int(total_product * (n ** -1)) for n in arr] # no division used
 
 def product_of_all_other_numbers_optimized(arr):
     
