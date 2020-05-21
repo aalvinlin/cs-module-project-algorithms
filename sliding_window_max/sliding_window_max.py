@@ -4,8 +4,8 @@ Returns: a List of integers
 '''
 
 def sliding_window_max(nums, k):
-    # return sliding_window_max_unoptimized(nums, k)
-    return sliding_window_max_optimized(nums, k)
+    return sliding_window_max_unoptimized(nums, k)
+    # return sliding_window_max_optimized(nums, k)
 
 def sliding_window_max_unoptimized(nums, k):
 
