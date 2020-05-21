@@ -47,9 +47,15 @@ def making_change_optimized(amount, denominations):
 
 def making_change_helper(amount, denominations, known_total_ways_to_make_change):
 
+  # check to see if amount is stored yet. If so, return that value
+  if amount in known_total_ways_to_make_change:
+
+    print("memoization used!", amount, known_total_ways_to_make_change[amount])
+    return known_total_ways_to_make_change[amount]
+
   # there is one way to make change for 0 cents
   # if this state is reached from a recursion call, then that means a solution was reached
-  if amount == 0:
+  elif amount == 0:
     print("found a new way")
     return 1
 
@@ -60,12 +66,6 @@ def making_change_helper(amount, denominations, known_total_ways_to_make_change)
   # no coins left but there is a positive amount of cents needed: return 0 ways
   elif len(denominations) == 0:
     return 0
-
-  # check to see if amount is stored yet. If so, return that value
-  elif amount in known_total_ways_to_make_change:
-
-    print("memoization used!", amount, known_total_ways_to_make_change[amount])
-    return known_total_ways_to_make_change[amount]
 
   # total ways to make change:
   #   ways to make change with the largest coin used PLUS
